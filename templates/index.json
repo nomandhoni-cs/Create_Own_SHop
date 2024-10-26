@@ -1,5 +1,8 @@
 {
   "sections": {
+    "create_own_hero_slider":{
+      "type": "create-own-hero-slider"
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -200,6 +203,7 @@
     }
   },
   "order": [
+    "create_own_hero_slider",
     "image_banner",
     "rich_text",
     "featured_collection",
