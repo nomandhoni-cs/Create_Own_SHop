@@ -505,23 +505,7 @@ i.fas.fa-arrow-up {
 /* header */
 
 /* slider */
-
-.single-slider-bg-1 {
-  background-image: url("../img/slider/slider-1.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.single-slider-bg-2 {
-  background-image: url("../img/slider/slider-2.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.single-slider-bg-3 {
-  background-image: url("../img/slider/slider-3.png");
+.single-slider-bg {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
