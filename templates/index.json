@@ -3,6 +3,21 @@
     "create_own_hero_slider":{
       "type": "create-own-hero-slider"
     },
+    "create_own_catagories":{
+      "type": "create-own-catagories"
+    },
+    "create_own_recomended":{
+      "type": "create-own-recomended"
+    },
+    "create_own_featured_products":{
+      "type": "create-own-feature-products"
+    },
+    "create_own_unique_products":{
+      "type": "create-own-unique-products"
+    },
+    "create_own_seller_shop":{
+      "type": "create-own-seller-shop"
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -204,6 +219,11 @@
   },
   "order": [
     "create_own_hero_slider",
+    "create_own_catagories",
+    "create_own_recomended",
+    "create_own_featured_products",
+    "create_own_unique_products",
+    "create_own_seller_shop",
     "image_banner",
     "rich_text",
     "featured_collection",
