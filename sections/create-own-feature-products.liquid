@@ -21,7 +21,7 @@
         {% for product in products_list_one limit: 5 %}
           <div class="f-product pl-20">
             <img src="{{product.featured_image |  image_url: width: 200, height: 200}}" alt="" class="b-img">
-            <a href="{{product.url}}">
+            <a href="{{product.url}}" class="text-decoration-none text-dark">
               <span class="heart-icon-1">
                 <i class="fas fa-heart"></i>
               </span>
@@ -44,7 +44,7 @@
             <span class="heart-icon-1">
               <i class="fas fa-heart"></i>
             </span>
-            <a href="{{product.url}}">
+            <a href="{{product.url}}" class="text-decoration-none text-dark">
               <div class="card-text pt-20">
                 <h6>{{ product.title }}</h6>
                 <span class="rating">
