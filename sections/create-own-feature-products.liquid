@@ -1,3 +1,15 @@
+{% if section.settings.product_list_one.products == blank %}
+  {% assign products_list_one = collections.first.products %}
+{% else %}
+  {% assign products_list_one = section.settings.product_list_one.products %}
+{% endif %}
+
+{% if section.settings.product_list_two.products == blank %}
+  {% assign products_list_two = collections.last.products %}
+{% else %}
+  {% assign products_list_two = section.settings.product_list_two.products %}
+{% endif %}
+
 <section class="pb-70">
   <div class="container">
     <div class="row">
@@ -6,148 +18,44 @@
         <span class="line-2"> </span>
       </div>
       <div class="f-product-box-1 d-flex align-items-center">
-        <div class="f-product">
-          <img src="img/Featured-products/f-1.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
+        {% for product in products_list_one limit: 5 %}
+          <div class="f-product pl-20">
+            <img src="{{product.featured_image |  image_url: width: 200, height: 200}}" alt="" class="b-img">
+            <a href="{{product.url}}">
+              <span class="heart-icon-1">
+                <i class="fas fa-heart"></i>
+              </span>
+              <div class="card-text pt-20">
+                <h6>{{ product.title }}</h6>
+                <span class="rating">
+                  <img src="img/categorise-img/rating.png" alt="" class="rating-img">
+                  <span class="rating-count">(10,002)</span>
+                </span>
+                <span class="price">{{- product.price | money -}}</span>
+              </div>
+            </a>
           </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-2.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-3.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-4.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-5.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
+        {% endfor %}
       </div>
       <div class="f-product-box-2 pt-60 d-flex align-items-center">
-        <div class="f-product">
-          <img src="img/Featured-products/f-6.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
+        {% for product in products_list_two limit: 5 %}
+          <div class="f-product pl-20">
+            <img src="{{product.featured_image |  image_url: width: 200, height: 200}}" alt="" class="b-img">
+            <span class="heart-icon-1">
+              <i class="fas fa-heart"></i>
             </span>
-            <span class="price">$10.00</span>
+            <a href="{{product.url}}">
+              <div class="card-text pt-20">
+                <h6>{{ product.title }}</h6>
+                <span class="rating">
+                  <img src="img/categorise-img/rating.png" alt="" class="rating-img">
+                  <span class="rating-count">(10,002)</span>
+                </span>
+                <span class="price">{{- product.price | money -}}</span>
+              </div>
+            </a>
           </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-2.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-8.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-9.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
-        <div class="f-product pl-20">
-          <img src="img/Featured-products/f-10.png" alt="" class="b-img">
-          <span class="heart-icon-1">
-            <i class="fas fa-heart"></i>
-          </span>
-          <div class="card-text pt-20">
-            <h6>The Procession Metal Print</h6>
-            <span class="rating">
-              <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-              <span class="rating-count">(10,002)</span>
-            </span>
-            <span class="price">$10.00</span>
-          </div>
-        </div>
+        {% endfor %}
       </div>
       <div class="btn-black m-auto f-product-btn">
         <span>SHOP NOW</span>
@@ -159,7 +67,18 @@
 {% schema %}
 {
   "name": "Create Own Feature",
-  "settings": [],
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "product_list_one",
+      "label": "Featured Products"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list_two",
+      "label": "Featured Products"
+    }
+  ],
   "presets": [
     {
       "name": "Create Own Feature Products"
