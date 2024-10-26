@@ -1,238 +1,107 @@
+{% if section.settings.unique_items == blank %}
+  {% assign all_collections = section.settings.unique_items %}
+{% else %}
+  {% assign all_collections = collections %}
+{% endif %}
+
 <section class="bg-unique-item pt-60">
   <div class="container">
     <div class="row">
       <div class="recommended-text-box">
         <h2 class="heading-text">Discover unique hand-picked items</h2>
       </div>
-      <span class="line pt-20"> </span>
+      <span class="line pt-20"></span>
 
       <!-- tab -->
-      <div class="p-5 p-sm-0 pb-0 rounded shadow  mt-20">
+      <div class="p-5 p-sm-0 pb-0 rounded shadow mt-20">
         <!-- Rounded tabs -->
         <ul
           id="myTab"
           role="tablist"
-          class="nav nav-tabs nav-pills flex-column flex-sm-row text-center  border-0 rounded-nav"
+          class="nav nav-tabs nav-pills flex-column flex-sm-row text-center border-0 rounded-nav"
         >
-          <li class="nav-item flex-sm-fill">
-            <a
-              id="home-tab"
-              data-toggle="tab"
-              href="#home"
-              role="tab"
-              aria-controls="home"
-              aria-selected="true"
-              class="nav-link border-0 text-uppercase font-weight-bold active"
-              >Modern farmhouse</a
-            >
-          </li>
-          <li class="nav-item flex-sm-fill">
-            <a
-              id="profile-tab"
-              data-toggle="tab"
-              href="#profile"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-              class="nav-link border-0 text-uppercase font-weight-bold"
-              >Eclectic Decor</a
-            >
-          </li>
-          <li class="nav-item flex-sm-fill">
-            <a
-              id="contact-tab"
-              data-toggle="tab"
-              href="#contact"
-              role="tab"
-              aria-controls="contact"
-              aria-selected="false"
-              class="nav-link border-0 text-uppercase font-weight-bold"
-              >Boho Decor</a
-            >
-          </li>
-          <li class="nav-item flex-sm-fill">
-            <a
-              id="home-tab"
-              data-toggle="tab"
-              href="#home"
-              role="tab"
-              aria-controls="home"
-              aria-selected="true"
-              class="nav-link border-0 text-uppercase font-weight-bold"
-              >Minimalist</a
-            >
-          </li>
-          <li class="nav-item flex-sm-fill">
-            <a
-              id="profile-tab"
-              data-toggle="tab"
-              href="#profile"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-              class="nav-link border-0 text-uppercase font-weight-bold"
-              >Eclectic Decor</a
-            >
-          </li>
-          <li class="nav-item flex-sm-fill">
-            <a
-              id="contact-tab"
-              data-toggle="tab"
-              href="#contact"
-              role="tab"
-              aria-controls="contact"
-              aria-selected="false"
-              class="nav-link border-0 text-uppercase font-weight-bold"
-              >Boho Decor</a
-            >
-          </li>
+          {% for collection in all_collections %}
+            <li class="nav-item flex-sm-fill">
+              <a
+                id="{{ collection.handle }}-tab"
+                data-toggle="tab"
+                href="#{{ collection.handle }}"
+                role="tab"
+                aria-controls="{{ collection.handle }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                class="nav-link border-0 text-uppercase font-weight-bold {% if forloop.first %}active{% endif %}"
+              >
+                {{ collection.title }}
+              </a>
+            </li>
+          {% endfor %}
         </ul>
+
         <div id="myTabContent" class="tab-content">
-          <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
-            <div class="container">
-              <div class="row d-flex align-items-center">
-                <div class="col-xl-3 col-lg-3 col-sm-3 col-12">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-1.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
+          {% for collection in all_collections %}
+            <div
+              id="{{ collection.handle }}"
+              role="tabpanel"
+              aria-labelledby="{{ collection.handle }}-tab"
+              class="tab-pane fade {% if forloop.first %}show active{% endif %} px-4 py-5"
+            >
+              <div class="container">
+                <div class="row d-flex align-items-center">
+                  {% assign products = collection.products | limit: 4 %}
+                  {% for product in products %}
+                    <div class="col-xl-3 col-lg-3 col-sm-3 col-12">
+                      <div class="f-product-tab text-center">
+                        <img
+                          src="{{ product.featured_image | image_url: width: 200, height: 200 }}"
+                          alt="{{ product.title }}"
+                          style="width: 100%; height: auto; border-radius: 15px; margin: 5px;"
+                        >
+                        <span
+                          class="heart-icon-2 add-to-wishlist"
+                          data-product-id="{{ product.id }}"
+                          data-product-title="{{ product.title }}"
+                          data-product-url="{{ product.url }}"
+                          data-product-price="{{ product.price }}"
+                          data-product-compare-at-price="{{ product.compare_at_price }}"
+                          data-product-type="{{ product.type }}"
+                          data-product-vendor="{{ product.vendor }}"
+                          data-product-available="{{ product.available }}"
+                          data-product-created-at="{{ product.created_at }}"
+                          data-product-description="{{ product.description | escape }}"
+                          data-product-handle="{{ product.handle }}"
+                          data-product-collections="{{ product.collections | join: ',' }}"
+                          data-product-tags="{{ product.tags | join: ',' }}"
+                        >
+                          <i class="fas fa-heart"></i>
+                        </span>
+                        <span class="u-price"> {{ product.price | money }} </span>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  <div class="btn-black m-auto f-product-btn">
+                    <span>SHOP NOW</span>
                   </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3 col-12">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-2.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3 col-12 ">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-3.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3 col-12">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-4.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="btn-black m-auto f-product-btn">
-                  <span>SHOP NOW</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
-            <div class="container">
-              <div class="row d-flex align-items-center">
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-1.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-2.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-3.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-4.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="btn-black m-auto f-product-btn">
-                  <span>SHOP NOW</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="contact" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
-            <div class="container">
-              <div class="row d-flex align-items-center">
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-1.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-2.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-3.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-sm-3">
-                  <div class="f-product-tab">
-                    <img src="img/unique-items/u-4.png" alt="">
-                    <span class="heart-icon-2">
-                      <i class="fas fa-heart"></i>
-                    </span>
-                    <span class="u-price"> $10.00 </span>
-                  </div>
-                </div>
-                <div class="btn-black m-auto f-product-btn">
-                  <span>SHOP NOW</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
         <!-- End rounded tabs -->
       </div>
     </div>
   </div>
 </section>
+
 {% schema %}
 {
   "name": "Create Own Unique",
-  "settings": [],
+  "settings": [
+    {
+      "type": "collection_list",
+      "label": "Recommended Products",
+      "id": "unique_items"
+    }
+  ],
   "presets": [
     {
       "name": "Create Own Unique Products"
