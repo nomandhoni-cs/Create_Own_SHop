@@ -153,7 +153,23 @@
     </div>
   </div>
 </header>
-
+{% style %}
+  .wishlist-popup {
+    position: absolute; /* Positioning relative to the header */
+    top: 50px; /* Adjust based on your layout */
+    right: 10px; /* Adjust based on your layout */
+    background: white; /* Background color */
+    border: 1px solid #ccc; /* Border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for better visibility */
+    z-index: 1000; /* Make sure it is above other elements */
+    padding: 15px; /* Inner padding */
+    max-height: 300px; /* Optional: Limit height */
+    overflow-y: auto; /* Optional: Scroll if content is too long */
+  }
+  .wishlist-item {
+    margin-bottom: 10px; /* Space between items */
+  }
+{% endstyle %}
 {% schema %}
 {
   "name": "header",
