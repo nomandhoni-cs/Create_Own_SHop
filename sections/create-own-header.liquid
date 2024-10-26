@@ -69,7 +69,6 @@
                 {% for single_menu in navigation_menu.links %}
                   <li class="{% if single_menu.links != blank %}menu-item-has-children{% endif %}">
                     <a href="{{ single_menu.url }}">{{ single_menu.title }}</a>
-
                     <!-- Check if there are child links -->
                     {% if single_menu.links != blank %}
                       <div class="sub-menu mega-menu mega-menu-column-4">
