@@ -644,6 +644,7 @@ i.fas.fa-arrow-up {
 
 .circle-shape img {
   position: relative;
+  border-radius: 16px;
 }
 
 .circle-shape::after {
