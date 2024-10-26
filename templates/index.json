@@ -21,6 +21,9 @@
     "create_own_about":{
       "type": "create-own-about"
     },
+    "create_own_newsletter":{
+      "type": "create-own-newsletter"
+    },
     // "image_banner": {
     //   "type": "image-banner",
     //   "blocks": {
@@ -228,6 +231,7 @@
     "create_own_unique_products",
     "create_own_seller_shop",
     "create_own_about",
+    "create_own_newsletter"
     // "image_banner",
     // "rich_text",
     // "featured_collection",
