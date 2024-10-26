@@ -53,6 +53,7 @@
     <script src="{{'jquery.magnific-popup.min.js' | asset_url }}" defer="defer"></script>
     <script src="{{'plugins.js' | asset_url }}" defer="defer"></script>
     <script src="{{'main.js' | asset_url }}" defer="defer"></script>
+    <script src="{{'create-own-wishlist.js' | asset_url }}" defer="defer"></script>
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
@@ -72,30 +73,14 @@
     {{ 'style.css' | asset_url | stylesheet_tag }}
     {{ 'mega-menu.css' | asset_url | stylesheet_tag }}
     {{ 'responsive.css' | asset_url | stylesheet_tag }}
-
-    {% comment %}
-      {{ 'fa-brands-400.eot' | shopify_asset_url }}
-      {{ 'fa-brands-400.svg' | shopify_asset_url }}
-      {{ 'fa-brands-400.ttf' | shopify_asset_url }}
-      {{ 'fa-brands-400.woff' | shopify_asset_url }}
-      {{ 'fa-brands-400.woff2' | shopify_asset_url }}
-      {{ 'fa-regular-400.eot' | shopify_asset_url }}
-      {{ 'fa-regular-400.svg' | shopify_asset_url }}
-      {{ 'fa-regular-400.ttf' | shopify_asset_url }}
-      {{ 'fa-regular-400.woff' | shopify_asset_url }}
-      {{ 'fa-regular-400.woff2' | shopify_asset_url }}
-      {{ 'fa-solid-900.eot' | shopify_asset_url }}
-      {{ 'fa-solid-900.svg' | shopify_asset_url }}
-      {{ 'fa-solid-900.ttf' | shopify_asset_url }}
-      {{ 'fa-solid-900.woff' | shopify_asset_url }}
-      {{ 'fa-solid-900.woff2' | shopify_asset_url }}
-    {% endcomment %}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
-    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-      {{ 'accessibility.skip_to_text' | t }}
-    </a>
+    {% comment %}
+      <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+        {{ 'accessibility.skip_to_text' | t }}
+      </a>
+    {% endcomment %}
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}
@@ -110,6 +95,50 @@
 
     {% comment %} {% sections 'footer-group' %} {% endcomment %}
     {% section 'create-own-footer' %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const wishlistCountElement = document.getElementById('wishlist-count');
+
+        function updateWishlistCount() {
+          const wishlist = JSON.parse(localStorage.getItem('favorites')) || [];
+          wishlistCountElement.textContent = wishlist.length;
+          wishlistCountElement.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
+        }
+
+        function toggleFavorite(productData) {
+          let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+          const index = favorites.findIndex((item) => item.id === productData.id);
+
+          if (index === -1) {
+            favorites.push(productData);
+          } else {
+            favorites.splice(index, 1);
+          }
+
+          localStorage.setItem('favorites', JSON.stringify(favorites));
+          updateWishlistCount();
+        }
+
+        // Initialize count on page load
+        updateWishlistCount();
+
+        document.querySelectorAll('.add-to-wishlist').forEach(function (icon) {
+          icon.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const productData = {
+              id: this.getAttribute('data-product-id'),
+              title: this.getAttribute('data-product-title'),
+              url: this.getAttribute('data-product-url'),
+              price: this.getAttribute('data-product-price'),
+            };
+
+            toggleFavorite(productData);
+            this.classList.toggle('active');
+          });
+        });
+      });
+    </script>
 
     {% comment %}
       <ul hidden>
