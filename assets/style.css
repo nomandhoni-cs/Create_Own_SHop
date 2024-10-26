@@ -268,6 +268,7 @@ button {
   text-transform: uppercase;
   transition: all 0.3s ease 0s;
 }
+
 .btn-black {
   --moz-user-select: none;
   background: #343434;
@@ -342,7 +343,7 @@ li.btn.btn-orange.sub-menu-btn {
   display: none;
 }
 
-.breadcrumb > .active {
+.breadcrumb>.active {
   color: #888;
 }
 
@@ -610,7 +611,8 @@ i.fas.fa-arrow-up {
   text-align: center;
   align-items: center;
 }
-.Recommended-section{
+
+.Recommended-section {
   padding-top: 10px;
   padding-bottom: 50px;
 }
@@ -769,7 +771,7 @@ ul#myTab {
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
+.nav-pills .show>.nav-link {
   color: #343434;
   background-color: #ffffff;
   font-size: 15px;
@@ -861,7 +863,6 @@ ul#myTab {
 
 .about-bg {
   padding: 100px 0px;
-  background-image: url("../img/about-us-img/About-us-bg.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
