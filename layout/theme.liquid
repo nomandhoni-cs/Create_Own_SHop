@@ -73,21 +73,23 @@
     {{ 'mega-menu.css' | asset_url | stylesheet_tag }}
     {{ 'responsive.css' | asset_url | stylesheet_tag }}
 
-    {{ 'fa-brands-400.eot' | shopify_asset_url }}
-    {{ 'fa-brands-400.svg' | shopify_asset_url }}
-    {{ 'fa-brands-400.ttf' | shopify_asset_url }}
-    {{ 'fa-brands-400.woff' | shopify_asset_url }}
-    {{ 'fa-brands-400.woff2' | shopify_asset_url }}
-    {{ 'fa-regular-400.eot' | shopify_asset_url }}
-    {{ 'fa-regular-400.svg' | shopify_asset_url }}
-    {{ 'fa-regular-400.ttf' | shopify_asset_url }}
-    {{ 'fa-regular-400.woff' | shopify_asset_url }}
-    {{ 'fa-regular-400.woff2' | shopify_asset_url }}
-    {{ 'fa-solid-900.eot' | shopify_asset_url }}
-    {{ 'fa-solid-900.svg' | shopify_asset_url }}
-    {{ 'fa-solid-900.ttf' | shopify_asset_url }}
-    {{ 'fa-solid-900.woff' | shopify_asset_url }}
-    {{ 'fa-solid-900.woff2' | shopify_asset_url }}
+    {% comment %}
+      {{ 'fa-brands-400.eot' | shopify_asset_url }}
+      {{ 'fa-brands-400.svg' | shopify_asset_url }}
+      {{ 'fa-brands-400.ttf' | shopify_asset_url }}
+      {{ 'fa-brands-400.woff' | shopify_asset_url }}
+      {{ 'fa-brands-400.woff2' | shopify_asset_url }}
+      {{ 'fa-regular-400.eot' | shopify_asset_url }}
+      {{ 'fa-regular-400.svg' | shopify_asset_url }}
+      {{ 'fa-regular-400.ttf' | shopify_asset_url }}
+      {{ 'fa-regular-400.woff' | shopify_asset_url }}
+      {{ 'fa-regular-400.woff2' | shopify_asset_url }}
+      {{ 'fa-solid-900.eot' | shopify_asset_url }}
+      {{ 'fa-solid-900.svg' | shopify_asset_url }}
+      {{ 'fa-solid-900.ttf' | shopify_asset_url }}
+      {{ 'fa-solid-900.woff' | shopify_asset_url }}
+      {{ 'fa-solid-900.woff2' | shopify_asset_url }}
+    {% endcomment %}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -106,7 +108,8 @@
       {{ content_for_layout }}
     </main>
 
-    {% sections 'footer-group' %}
+    {% comment %} {% sections 'footer-group' %} {% endcomment %}
+    {% section 'create-own-footer' %}
 
     {% comment %}
       <ul hidden>
