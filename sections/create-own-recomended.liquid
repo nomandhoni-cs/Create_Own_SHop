@@ -1,5 +1,5 @@
 {% assign recommended_products = section.settings %}
-<section class="Recommended-section ">
+<section class="Recommended-section">
   <div class="container">
     <div class="row d-flex align-items-center">
       <div class="recommended-text-box">
@@ -20,25 +20,37 @@
         <div class="item circle-shape">
           <img
             class="rounded-lg"
-            src="{{product.featured_image |  image_url: width: 350, height: 350}}"
+            src="{{ product.featured_image | image_url: width: 350, height: 350 }}"
             width="350px"
             height="350px"
-            alt="{{product.title}}"
+            alt="{{ product.title }}"
           >
-          <a href="{{product.url}}" class="text-decoration-none text-dark">
-            <span class="heart-icon">
+          <a href="{{ product.url }}" class="text-decoration-none text-dark">
+            <span
+              class="heart-icon"
+              data-product-id="{{ product.id }}"
+              data-product-title="{{ product.title }}"
+              data-product-url="{{ product.url }}"
+              data-product-price="{{ product.price }}"
+              data-product-compare-at-price="{{ product.compare_at_price }}"
+              data-product-type="{{ product.type }}"
+              data-product-vendor="{{ product.vendor }}"
+              data-product-available="{{ product.available }}"
+              data-product-created-at="{{ product.created_at }}"
+              data-product-description="{{ product.description | escape }}"
+              data-product-handle="{{ product.handle }}"
+              data-product-collections="{{ product.collections | join: ',' }}"
+              data-product-tags="{{ product.tags | join: ',' }}"
+            >
               <i class="fas fa-heart"></i>
             </span>
             <div class="card-text pt-20">
               <h6>{{ product.title }}</h6>
-              {% comment %}
-                <span class="rating">
-                  <img src="img/categorise-img/rating.png" alt="" class="rating-img">
-                  <span class="rating-count">(10,002)</span>
-                  </span>
-              {% endcomment %}
               <span class="price">
-                {{- product.price | money -}}
+                {{ product.price | money }}
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
               </span>
             </div>
           </a>
@@ -47,6 +59,10 @@
     </div>
   </div>
 </section>
+
+{% javascript %}
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "Create Own Recomended",

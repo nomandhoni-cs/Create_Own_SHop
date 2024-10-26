@@ -69,7 +69,7 @@
                 {% for single_menu in navigation_menu.links %}
                   <li class="{% if single_menu.links != blank %}menu-item-has-children{% endif %}">
                     <a href="{{ single_menu.url }}">{{ single_menu.title }}</a>
-                    <!-- Check if there are child links -->
+
                     {% if single_menu.links != blank %}
                       <div class="sub-menu mega-menu mega-menu-column-4">
                         <div class="mega-menu-items">
@@ -81,14 +81,12 @@
                                 </div>
                               </div>
                             </div>
+
                             <div class="row">
-                              <!-- Loop through child links of single_menu -->
                               {% for childLink in single_menu.links %}
                                 <div class="col-xl-3 col-lg-3">
                                   <div class="list-item">
                                     <h4 class="title"><i class="fas fa-shopping-bag"></i> {{ childLink.title }}</h4>
-
-                                    <!-- Check if childLink has grandchild links -->
                                     <ul>
                                       {% if childLink.links != blank %}
                                         {% for grandChildLink in childLink.links %}
@@ -97,7 +95,6 @@
                                           </li>
                                         {% endfor %}
                                       {% else %}
-                                        <!-- If no grandchild links, just show child link -->
                                         <li>
                                           <a href="{{ childLink.url }}">{{ childLink.title }}</a>
                                         </li>
@@ -105,6 +102,26 @@
                                     </ul>
                                   </div>
                                 </div>
+                              {% endfor %}
+                            </div>
+
+                            <!-- Row to display single product per column -->
+                            <div class="row">
+                              {% for product in section.settings.product_list %}
+                                <div class="col-xl-3 col-lg-3">
+                                  <div class="single-product">
+                                    <a href="{{ product.url }}">
+                                      <img
+                                        src="{{ product.featured_image | image_url: width: 200, height: 200 }}"
+                                        alt="{{ product.title }}"
+                                      >
+                                      <h5>{{ product.title }}</h5>
+                                      <p class="price">{{ product.price | money }}</p>
+                                    </a>
+                                  </div>
+                                </div>
+                                {% break %}
+                                <!-- Limit to one product per column -->
                               {% endfor %}
                             </div>
                           </div>
@@ -140,6 +157,11 @@
       "id": "navbar_menu",
       "label": "Select a Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Select a Product List"
     }
   ],
   "presets": []
