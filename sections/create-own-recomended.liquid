@@ -25,25 +25,25 @@
             height="350px"
             alt="{{ product.title }}"
           >
+          <span
+            class="heart-icon add-to-wishlist"
+            data-product-id="{{ product.id }}"
+            data-product-title="{{ product.title }}"
+            data-product-url="{{ product.url }}"
+            data-product-price="{{ product.price }}"
+            data-product-compare-at-price="{{ product.compare_at_price }}"
+            data-product-type="{{ product.type }}"
+            data-product-vendor="{{ product.vendor }}"
+            data-product-available="{{ product.available }}"
+            data-product-created-at="{{ product.created_at }}"
+            data-product-description="{{ product.description | escape }}"
+            data-product-handle="{{ product.handle }}"
+            data-product-collections="{{ product.collections | join: ',' }}"
+            data-product-tags="{{ product.tags | join: ',' }}"
+          >
+            <i class="fas fa-heart"></i>
+          </span>
           <a href="{{ product.url }}" class="text-decoration-none text-dark">
-            <span
-              class="heart-icon"
-              data-product-id="{{ product.id }}"
-              data-product-title="{{ product.title }}"
-              data-product-url="{{ product.url }}"
-              data-product-price="{{ product.price }}"
-              data-product-compare-at-price="{{ product.compare_at_price }}"
-              data-product-type="{{ product.type }}"
-              data-product-vendor="{{ product.vendor }}"
-              data-product-available="{{ product.available }}"
-              data-product-created-at="{{ product.created_at }}"
-              data-product-description="{{ product.description | escape }}"
-              data-product-handle="{{ product.handle }}"
-              data-product-collections="{{ product.collections | join: ',' }}"
-              data-product-tags="{{ product.tags | join: ',' }}"
-            >
-              <i class="fas fa-heart"></i>
-            </span>
             <div class="card-text pt-20">
               <h6>{{ product.title }}</h6>
               <span class="price">
@@ -59,9 +59,6 @@
     </div>
   </div>
 </section>
-
-{% javascript %}
-{% endjavascript %}
 
 {% schema %}
 {

@@ -37,3 +37,47 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const wishlistCountElement = document.getElementById('wishlist-count');
+
+  function updateWishlistCount() {
+    const wishlist = JSON.parse(localStorage.getItem('favorites')) || [];
+    wishlistCountElement.textContent = wishlist.length;
+    wishlistCountElement.style.display = wishlist.length > 0 ? 'inline-block' : 'none';
+  }
+
+  function toggleFavorite(productData) {
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const index = favorites.findIndex((item) => item.id === productData.id);
+
+    if (index === -1) {
+      favorites.push(productData);
+    } else {
+      favorites.splice(index, 1);
+    }
+
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    updateWishlistCount();
+  }
+
+  // Initialize count on page load
+  updateWishlistCount();
+
+  document.querySelectorAll('.heart-icon').forEach(function (icon) {
+    icon.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const productData = {
+        id: this.getAttribute('data-product-id'),
+        title: this.getAttribute('data-product-title'),
+        url: this.getAttribute('data-product-url'),
+        price: this.getAttribute('data-product-price'),
+        // other data attributes as needed
+      };
+
+      toggleFavorite(productData);
+      this.classList.toggle('active');
+    });
+  });
+});
