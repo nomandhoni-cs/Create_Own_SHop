@@ -1,0 +1,54 @@
+{% if section.settings.collections_selection == blank %}
+  {% assign categories = collections %}
+{% else %}
+  {% assign categories = section.settings.collections_selection %}
+{% endif %}
+{% assign max_collections = section.settings.max_collections | default: categories.size %}
+
+<div class="categories-section">
+  <div class="container">
+    <ul class="categories-list">
+      {% for collection in categories limit: max_collections %}
+        <a href="{{ collection.url }}" class="categories-item text-center">
+          <li>
+            <img
+              src="{% if collection.image == blank %} {{ collection.products[0].featured_image | image_url: width: 100, height: 100 }} {% else %} {{ collection.image | image_url: width: 100, height: 100 }}{% endif %}"
+              class="rounded-circle"
+              width="100px"
+              height="100px"
+              alt=""
+            >
+            <span class="d-block pt-15">{{ collection.title }}</span>
+          </li>
+        </a>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Create Own Categories",
+  "settings": [
+    {
+      "type": "collection_list",
+      "id": "collections_selection",
+      "label": "Select collections to display"
+    },
+    {
+      "type": "range",
+      "id": "max_collections",
+      "label": "Max collections to display",
+      "default": 5,
+      "step": 1,
+      "min": 1,
+      "max": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Create Own Categories"
+    }
+  ]
+}
+{% endschema %}

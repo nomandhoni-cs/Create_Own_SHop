@@ -1,0 +1,140 @@
+{% assign slides = section.blocks %}
+<section class="slider-section">
+  <div class="slider-box">
+    <div class="slider-active">
+      {% for slide in slides %}
+        <div
+          class="single-slider single-slider-bg slider-height"
+          data-background="{% if slide.settings.background_image == blank %}'https://easyshop-tailwind.myshopify.com/cdn/shop/files/slider-1.png?v=1729342864'{% else %} {{ slide.settings.background_image | image_url: width: 1920, height: 800 }} {% endif %}"
+        >
+          <div class="slider-text u-padding">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-6 col-lg-8 col-sm-8">
+                  <div class="slider-text">
+                    <div class="slider-heading">
+                      <h1>{{ slide.settings.heading }}</h1>
+                    </div>
+                    <div class="slider-para">
+                      <p>
+                        {{ slide.settings.description }}
+                      </p>
+                    </div>
+                    <a href="{{ slide.settings.button_link }}">
+                      <div class="btn-black mt-10">
+                        <span>{{ slide.settings.button_text }}</span>
+                      </div>
+                    </a>
+                    <div class="profile mt-35">
+                      <img src="img/profile-mg/profile-circle.png" alt="" class="f-left pr-2">
+                      <span class="fix mt-10"> 1K+ customers purchased this cloth </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-4 col-sm-4">
+                  <span>
+                    <!-- blank -->
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% javascript %}
+  // data-background
+  $('[data-background]').each(function () {
+    $(this).css('background-image', 'url(' + $(this).attr('data-background') + ')');
+  });
+  // mainSlider
+  function mainSlider() {
+    var BasicSlider = $('.slider-active');
+    BasicSlider.on('init', function (e, slick) {
+      var $firstAnimatingElements = $('.single-slider:first-child').find('[data-animation]');
+      doAnimations($firstAnimatingElements);
+    });
+    BasicSlider.on('beforeChange', function (e, slick, currentSlide, nextSlide) {
+      var $animatingElements = $('.single-slider[data-slick-index="' + nextSlide + '"]').find('[data-animation]');
+      doAnimations($animatingElements);
+    });
+    BasicSlider.slick({
+      autoplay: true,
+      autoplaySpeed: 10000,
+      dots: false,
+      fade: false,
+      prevArrow:
+        '<button type="button" class= "slick-prev font-weight-bold"><i class="fas fa-long-arrow-alt-left"></i></button>',
+      nextArrow:
+        '<button type="button" class= "slick-next font-weight-bold"><i class="fas fa-long-arrow-alt-right"></i></button>',
+      arrows: true,
+      responsive: [{ breakpoint: 767, settings: { dots: false, arrows: false } }],
+    });
+
+    function doAnimations(elements) {
+      var animationEndEvents = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      elements.each(function () {
+        var $this = $(this);
+        var $animationDelay = $this.data('delay');
+        var $animationType = 'animated ' + $this.data('animation');
+        $this.css({
+          'animation-delay': $animationDelay,
+          '-webkit-animation-delay': $animationDelay,
+        });
+        $this.addClass($animationType).one(animationEndEvents, function () {
+          $this.removeClass($animationType);
+        });
+      });
+    }
+  }
+  mainSlider();
+{% endjavascript %}
+{% schema %}
+{
+  "name": "Create Own Hero Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "hero_slider",
+      "name": "Single slider",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Mask Shop"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do  eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Create Own Hero Slider"
+    }
+  ]
+}
+{% endschema %}

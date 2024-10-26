@@ -1,0 +1,76 @@
+{% assign recommended_products = section.settings %}
+<section class="Recommended-section ">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <div class="recommended-text-box">
+        <h2 class="heading-text">{{ recommended_products.heading_text }}</h2>
+        <a href="">
+          <div class="btn-black">
+            <span>SHOP NOW</span>
+          </div>
+        </a>
+      </div>
+      <span class="line pt-20"> </span>
+    </div>
+  </div>
+
+  <div class="card-box">
+    <div class="owl-carousel owl-theme">
+      {% for product in recommended_products.recommended_products_collection.products %}
+        <div class="item circle-shape">
+          <img
+            class="rounded-lg"
+            src="{{product.featured_image |  image_url: width: 350, height: 350}}"
+            width="350px"
+            height="350px"
+            alt="{{product.title}}"
+          >
+          <a href="{{product.url}}">
+            <span class="heart-icon">
+              <i class="fas fa-heart"></i>
+            </span>
+            <div class="card-text pt-20">
+              <h6>{{ product.title }}</h6>
+              {% comment %}
+                <span class="rating">
+                  <img src="img/categorise-img/rating.png" alt="" class="rating-img">
+                  <span class="rating-count">(10,002)</span>
+                  </span>
+              {% endcomment %}
+              <span class="price">
+                {{- product.price | money -}}
+              </span>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Create Own Recomended",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Create Own Recomended"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "Recommended for you"
+    },
+    {
+      "type": "collection",
+      "id": "recommended_products_collection",
+      "label": "Recommended Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Create Own Recomended"
+    }
+  ]
+}
+{% endschema %}

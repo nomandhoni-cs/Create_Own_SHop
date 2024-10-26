@@ -1,0 +1,82 @@
+{% assign about_section = section.settings %}
+<section class="about-bg">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <div class="col-xl-5 col-lg-5 col-sm-0">
+        <!-- img -->
+      </div>
+      <div class="col-xl-7 col-lg-7 col-sm-12">
+        <div class="text-box">
+          <h2>{{ about_section.about_heading }}</h2>
+          <hr>
+          <p>
+            {{ about_section.first_about_text }}
+          </p>
+          <p>
+            {{ about_section.second_about_text }}
+          </p>
+        </div>
+        <a href="{{ about_section.about_btn_link }}">
+          <div class="btn-black mt-20">
+            <span>{{ about_section.about_btn_text }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% style %}
+  .about-bg {
+    background-image: url('{{ about_section.background_image |  image_url: width: 1000, height: 500 }}');
+  }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Create own about",
+  "settings": [
+    {
+      "type": "header",
+      "content": "About Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "default": "What is Create own?",
+      "id": "about_heading",
+      "label": "About Heading"
+    },
+    {
+      "type": "textarea",
+      "default": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using",
+      "id": "first_about_text",
+      "label": "First About Text"
+    },
+    {
+      "type": "textarea",
+      "default": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using",
+      "id": "second_about_text",
+      "label": "Second About Text"
+    },
+    {
+      "type": "url",
+      "id": "about_btn_link",
+      "label": "About Button Link"
+    },
+    {
+      "type": "text",
+      "default": "Learn More",
+      "id": "about_btn_text",
+      "label": "About Button Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Create own about"
+    }
+  ]
+}
+{% endschema %}
