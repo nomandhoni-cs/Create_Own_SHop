@@ -11,13 +11,17 @@
       {% for collection in categories limit: max_collections %}
         <a href="{{ collection.url }}" class="categories-item text-center">
           <li>
-            <img
-              src="{% if collection.image == blank %} {{ collection.products[0].featured_image | image_url: width: 100, height: 100 }} {% else %} {{ collection.image | image_url: width: 100, height: 100 }}{% endif %}"
-              class="rounded-circle"
-              width="100px"
-              height="100px"
-              alt=""
-            >
+            {% if collection.image != blank %}
+              <img
+                src="{{ collection.image | image_url: width: 100, height: 100 }}"
+                class="collection-thumbnail"
+                width="100px"
+                height="100px"
+                alt=""
+              >
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag: 'collection-thumbnail' }}
+            {% endif %}
             <span class="d-block pt-15">{{ collection.title }}</span>
           </li>
         </a>
@@ -25,7 +29,14 @@
     </ul>
   </div>
 </div>
-
+{% style %}
+  .collection-thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+{% endstyle %}
 {% schema %}
 {
   "name": "Create Own Categories",

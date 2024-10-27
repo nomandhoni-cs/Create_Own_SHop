@@ -1,7 +1,7 @@
-{% if section.settings.recommended_products_collection == blank %}
-  {% assign recommended_products = collections.first.products %}
+{% if section.settings.recommended_products_collection != blank %}
+  {% assign recommended_products = section.settings.recommended_products_collection.products %}
 {% else %}
-  {% assign recommended_products = section.settings %}
+  {% assign recommended_products = collections.last.products %}
 {% endif %}
 <section class="Recommended-section">
   <div class="container">
@@ -20,7 +20,7 @@
 
   <div class="card-box">
     <div class="owl-carousel owl-theme">
-      {% for product in recommended_products.recommended_products_collection.products %}
+      {% for product in recommended_products %}
         <div class="item circle-shape">
           <img
             class="rounded-lg"
