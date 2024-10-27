@@ -1,8 +1,12 @@
 {% assign about_section = section.settings %}
+{% assign bg_image = 'lifestyle-1' %}
 <section class="about-bg">
   <div class="container">
     <div class="row d-flex align-items-center">
       <div class="col-xl-5 col-lg-5 col-sm-0">
+        {% if about_section.background_image == blank %}
+          {{ bg_image | placeholder_svg_tag: 'about-bg' }}
+        {% endif %}
         <!-- img -->
       </div>
       <div class="col-xl-7 col-lg-7 col-sm-12">

@@ -1,4 +1,8 @@
-{% assign recommended_products = section.settings %}
+{% if section.settings.recommended_products_collection == blank %}
+  {% assign recommended_products = collections.first.products %}
+{% else %}
+  {% assign recommended_products = section.settings %}
+{% endif %}
 <section class="Recommended-section">
   <div class="container">
     <div class="row d-flex align-items-center">
